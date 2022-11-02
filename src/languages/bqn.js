@@ -9,8 +9,8 @@ Website: https://mlochbaum.github.io/BQN
 export default function(hljs) {
   var BLOCK_MODES = [
     { scope: "title.function", match: "[𝔽𝔾𝕎𝕏𝕊]", relevance: 9 },
-    { scope: 'operator', match: "_𝕣", relevance: 9 },
     { scope: 'built_in', match: "_𝕣_", relevance: 9 },
+    { scope: 'operator', match: "_𝕣", relevance: 9 },
     { scope: 'variable', match: "[𝕗𝕘𝕨𝕩𝕤𝕣]", relevance: 9 }
   ];
   const BASE_MODES = [
@@ -57,7 +57,7 @@ export default function(hljs) {
     {
       scope: 'operator', // 1-modifier
       match: "[˙˜˘¨´˝`⌜⁼]",
-      relevance: 0
+      relevance: 9
     },
     {
       scope: 'operator',
