@@ -11,10 +11,10 @@ Website: https://mlochbaum.github.io/BQN
 
 export default function(hljs) {
   var BLOCK_MODES = [
-    { scope: "title.function", match: "[𝔽𝔾𝕎𝕏𝕊]"},
-    { scope: 'operator', match: "_𝕣" },
-    { scope: 'built_in', match: "_𝕣_" },
-    { scope: 'variable', match: "[𝕗𝕘𝕨𝕩𝕤𝕣]" }
+    { scope: "title.function", match: "[𝔽𝔾𝕎𝕏𝕊]", relevance: 9 },
+    { scope: 'operator', match: "_𝕣", relevance: 9 },
+    { scope: 'built_in', match: "_𝕣_", relevance: 9 },
+    { scope: 'variable', match: "[𝕗𝕘𝕨𝕩𝕤𝕣]", relevance: 9 }
   ];
   const BASE_MODES = [
     {
@@ -40,7 +40,7 @@ export default function(hljs) {
     {
       scope: 'title.function',
       match: "[+\\-×÷⋆√⌊⌈|¬∧∨<>≠=≤≥≡≢⊣⊢⥊∾≍⋈↑↓↕«»⌽⍉/⍋⍒⊏⊑⊐⊒∊⍷⊔!⍕⍎]",
-      relevance: 9
+      relevance: 0
     },
     {
       scope: 'title.function',
@@ -60,7 +60,7 @@ export default function(hljs) {
     {
       scope: 'operator', // 1-modifier
       match: "[˙˜˘¨´˝`⌜⁼]",
-      relevance: 9
+      relevance: 0
     },
     {
       scope: 'operator',
@@ -69,7 +69,8 @@ export default function(hljs) {
     },
     {
       scope: 'punctuation',
-      match: "[()⟨⟩;.,⋄·↩←⇐‿?]"
+      match: "[()⟨⟩;.,⋄·↩←⇐‿?]",
+      relevance: 0
     },
   ];
   return {
@@ -78,11 +79,12 @@ export default function(hljs) {
     contains: [
     ...BASE_MODES,
     {
-      scope: 'block',
+      scope: 'punctuation',
       begin: '\\{', end: '\\}',
-      contains: [...BLOCK_MODES, ...BASE_MODES, 'self']
+      contains: [...BLOCK_MODES, ...BASE_MODES, 'self'],
+      relevance: 0
     },
-    hljs.COMMENT('#', /$\n/)
+    hljs.COMMENT('#', /$\n/, {relevance: 0})
     ]
   }
 }
