@@ -1,44 +1,86 @@
 /*
 Language: BQN
-Requires: 
 Author: Raghu Ranganathan <rraghu.11502@gmail.com>
 Contributors: 
 Description: BQN array language definitions
 Website: https://mlochbaum.github.io/BQN
 */
+
+
+
+
 export default function(hljs) {
-  return {
-    name: "BQN",
-    unicodeRegex: true,
-    keywords: '•BQN •ReBQN •primitives •Import •FFI •state •args •path •name •wdpath •Exit •file •FChars •FBytes •FLines •Out •Show •Repr •Fmt •term •SH •Type •Glyph •Decompose •UnixTime •MonoTime •Delay •_timed •math •MakeRand •rand •bit •_while_ •GetLine •Hash •PrimInd •Cmp •FromUTF8 •ToUTF8 •CurrentError •internal •bqn •currenterror •decompose •fmt •glyph •js •listsys •monotime •ns •out •plot •rebqn •repr •setplot •show •timed •type •unixtime', // only primitive functions included.
-    contains: [
+  var BLOCK_MODES = [
+    { scope: "title.function", match: "[𝔽𝔾𝕎𝕏𝕊]"},
+    { scope: 'operator', match: "_𝕣" },
+    { scope: 'built_in', match: "_𝕣_" },
+    { scope: 'variable', match: "[𝕗𝕘𝕨𝕩𝕤𝕣]" }
+  ];
+  const BASE_MODES = [
     {
       scope: 'string',
-      begin: '"', end: '"'
+      begin: '"', end: '"',
+      relevance: 0
     },
     {
       scope: 'string',
-      begin: '\'', end: '\''
+      begin: '\'', end: '\'',
+      relevance: 0
     },
     {
       scope: 'number',
-      match: "(?<![A-Z_a-z0-9π∞¯])¯?(¯_*)?((\\d[\\d_]*(\\.\\d[\\d_]*)?|π_*)([eE]_*(¯_*)?\\d[\\d_]*)?|∞_*)(i_*(¯_*)?((\\d[\\d_]*(\\.\\d[\\d_]*)?|π_*)([eE]_*(¯_*)?\\d[\\d_]*)?|∞_*))?"
+      match: "(?<![A-Z_a-z0-9π∞¯])¯?(¯_*)?((\\d[\\d_]*(\\.\\d[\\d_]*)?|π_*)([eE]_*(¯_*)?\\d[\\d_]*)?|∞_*)(i_*(¯_*)?((\\d[\\d_]*(\\.\\d[\\d_]*)?|π_*)([eE]_*(¯_*)?\\d[\\d_]*)?|∞_*))?",
+      relevance: 0
+    },
+    {
+      scope: 'variable',
+      match: "•?\\b[a-z][A-Z_a-z0-9π∞¯]*",
+      relevance: 0
     },
     {
       scope: 'title.function',
-      match: "[𝔽𝔾𝕎𝕏𝕊+\\-×÷⋆√⌊⌈|¬∧∨<>≠=≤≥≡≢⊣⊢⥊∾≍⋈↑↓↕«»⌽⍉/⍋⍒⊏⊑⊐⊒∊⍷⊔!⍕⍎]|•?\\b[A-Z][A-Z_a-z0-9π∞¯]*"
+      match: "[+\\-×÷⋆√⌊⌈|¬∧∨<>≠=≤≥≡≢⊣⊢⥊∾≍⋈↑↓↕«»⌽⍉/⍋⍒⊏⊑⊐⊒∊⍷⊔!⍕⍎]",
+      relevance: 9
+    },
+    {
+      scope: 'title.function',
+      match: "•?\\b[A-Z][A-Z_a-z0-9π∞¯]*",
+      relevance: 0
+    },
+    {
+      scope: 'built_in', // 2-modifier
+      match: "[∘○⊸⟜⌾⊘◶⎊⎉⚇⍟]",
+      relevance: 9
+    },
+    {
+      scope: 'built_in',
+      match: "\\b_[A-Za-z][_A-Za-z¯π∞0-9]*_\\b",
+      relevance: 0
     },
     {
       scope: 'operator', // 1-modifier
-      match: "([˙˜˘¨´˝`⌜⁼]|\\b_[A-Za-z𝕣][_A-Za-z¯π∞0-9]*[^_]\\b)"
+      match: "[˙˜˘¨´˝`⌜⁼]",
+      relevance: 9
     },
     {
-      scope: 'title.function.invoke', // 2-modifier
-      match: "([∘○⊸⟜⌾⊘◶⎊⎉⚇⍟]|\\b_[A-Za-z𝕣][_A-Za-z¯π∞0-9]*_\\b)"
+      scope: 'operator',
+      match: "\\b_[A-Za-z][_A-Za-z¯π∞0-9]*[^_]\\b",
+      relevance: 0
     },
     {
       scope: 'punctuation',
-      match: "[{}()⟨⟩;.,⋄·↩←⇐]"
+      match: "[()⟨⟩;.,⋄·↩←⇐‿?]"
+    },
+  ];
+  return {
+    name: "BQN",
+    unicodeRegex: true,
+    contains: [
+    ...BASE_MODES,
+    {
+      scope: 'block',
+      begin: '\\{', end: '\\}',
+      contains: [...BLOCK_MODES, ...BASE_MODES, 'self']
     },
     hljs.COMMENT('#', /$\n/)
     ]
