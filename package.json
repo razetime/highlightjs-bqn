@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/razetime/highlightjs-bqn.git"
+    "url": "git+https://github.com/razetime/highlightjs-bqn.git"
   },
   "keywords": [
     "bqn",
@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/razetime/highlightjs-bqn/issues"
   },
-  "homepage": "https://github.com/razetime/highlightjs-bqn"
+  "homepage": "https://github.com/razetime/highlightjs-bqn",
+  "directories": {
+    "test": "test"
+  }
 }
