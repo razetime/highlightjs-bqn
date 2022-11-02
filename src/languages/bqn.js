@@ -57,7 +57,7 @@ export default function(hljs) {
     {
       scope: 'operator', // 1-modifier
       match: "[˙˜˘¨´˝`⌜⁼]",
-      relevance: 9
+      relevance: 3
     },
     {
       scope: 'operator',
