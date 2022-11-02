@@ -6,9 +6,6 @@ Description: BQN array language definitions
 Website: https://mlochbaum.github.io/BQN
 */
 
-
-
-
 export default function(hljs) {
   var BLOCK_MODES = [
     { scope: "title.function", match: "[𝔽𝔾𝕎𝕏𝕊]", relevance: 9 },
