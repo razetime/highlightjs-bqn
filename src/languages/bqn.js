@@ -51,7 +51,7 @@ export default function(hljs) {
     },
     {
       scope: 'built_in',
-      match: "\\b_[A-Za-z][_A-Za-z¯π∞0-9]*_\\b",
+      match: "\\b_+[A-Za-z][_A-Za-z¯π∞0-9]*_\\b",
       relevance: 0
     },
     {
@@ -61,7 +61,7 @@ export default function(hljs) {
     },
     {
       scope: 'operator',
-      match: "\\b_[A-Za-z][_A-Za-z¯π∞0-9]*[^_]\\b",
+      match: "\\b_+[A-Za-z][_A-Za-z¯π∞0-9]*[^_]\\b",
       relevance: 0
     },
     {
